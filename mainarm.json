@@ -28,11 +28,11 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://cptdevopsstorageacct.blob.core.windows.net/armtemplates/azurearm.json",
+                    "uri": "https://cptdevopsstorageacct.blob.core.windows.net/armtemplates/sqltemplate.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri": "https://cptdevopsstorageacct.blob.core.windows.net/armtemplates/azurearm parameters.json",
+                    "uri": "https://cptdevopsstorageacct.blob.core.windows.net/armtemplates/sqlparameter.json",
                     "contentVersion": "1.0.0.0"
                 }
             }
