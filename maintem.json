@@ -1,650 +1,205 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-      "parameters": {
-    "adminUsername": {
+    "parameters": {
+		
+		"serverName": {
       "type": "string",
+      "defaultValue": "[uniqueString('sql', resourceGroup().id)]",
       "metadata": {
-        "description": "Username for the Virtual Machine."
+        "description": "The name of the SQL logical server."
       }
     },
-    "adminPassword": {
-      "type": "secureString",
-     
-      "metadata": {
-        "description": "Password for the Virtual Machine."
-      }
-    },
-    "dnsLabelPrefix": {
+    "sqlDBName": {
       "type": "string",
-     
+      "defaultValue": "SampleDB",
       "metadata": {
-        "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
-      }
-    },
-    "publicIpName": {
-      "type": "string",
-      
-      "metadata": {
-        "description": "Name for the Public IP used to access the Virtual Machine."
-      }
-    },
-    "publicIPAllocationMethod": {
-      "type": "string",
-      
-      "metadata": {
-        "description": "Allocation method for the Public IP used to access the Virtual Machine."
-      }
-    },
-    "publicIpSku": {
-      "type": "string",
-      
-      "metadata": {
-        "description": "SKU for the Public IP used to access the Virtual Machine."
-      }
-    },
-    "OSVersion": {
-      "type": "string",
-      
-     
-      "metadata": {
-        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
-      }
-    },
-    "vmSize": {
-      "type": "string",
-      
-      "metadata": {
-        "description": "Size of the virtual machine."
+        "description": "The name of the SQL Database."
       }
     },
     "location": {
       "type": "string",
-    
+      "defaultValue": "[resourceGroup().location]",
       "metadata": {
         "description": "Location for all resources."
       }
     },
-    "vmName": {
+    "administratorLogin": {
       "type": "string",
-      
       "metadata": {
-        "description": "Name of the virtual machine."
+        "description": "The administrator username of the SQL logical server."
       }
     },
-	"administratorLogin": {
+    "administratorLoginPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The administrator password of the SQL logical server."
+      }
+    },
+	 "networkInterfaceName": {
             "type": "string"
-        },
-        "administratorLoginPassword": {
-            "type": "securestring"
-        },
-        "collation": {
-            "type": "string"
-        },
-        "databaseName": {
-            "type": "string"
-        },
-        "tier": {
-            "type": "string"
-        },
-        "skuName": {
-            "type": "string"
-        },
-        "location": {
-            "type": "string"
-        },
-        "maxSizeBytes": {
-            "type": "int"
-        },
-        "serverName": {
-            "type": "string"
-        },
-        "sampleName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "zoneRedundant": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "licenseType": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "readScaleOut": {
-            "type": "string",
-            "defaultValue": "Disabled"
-        },
-        "numberOfReplicas": {
-            "type": "int",
-            "defaultValue": 0
-        },
-        "minCapacity": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "autoPauseDelay": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "enableADS": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "allowAzureIps": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "databaseTags": {
-            "type": "object",
-            "defaultValue": {}
-        },
-        "serverTags": {
-            "type": "object",
-            "defaultValue": {}
-        },
-        "enableVA": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "useVAManagedIdentity": {
-            "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "To enable vulnerability assessments, the user deploying this template must have an administrator or owner permissions."
-            }
-        },
-        "enablePrivateEndpoint": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "privateEndpointNestedTemplateId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointSubscriptionId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointLocation": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointSubnetId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateLinkServiceName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateLinkServiceServiceId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointVnetSubscriptionId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointVnetResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointVnetName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointSubnetName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "enablePrivateDnsZone": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "privateLinkPrivateDnsZoneFQDN": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointDnsRecordUniqueId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateDnsForPrivateEndpointTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateDnsForPrivateEndpointNicTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateDnsForPrivateEndpointIpConfigTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "allowClientIp": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "clientIpRuleName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "clientIpValue": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "requestedBackupStorageRedundancy": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "maintenanceConfigurationId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "minimalTlsVersion": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "enableSqlLedger": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "enableDigestStorage": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "digestStorageOption": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "digestStorageName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "blobStorageContainerName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "retentionDays": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "retentionPolicy": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "digestAccountResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "digestRegion": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "isNewDigestLocation": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "sqlLedgerTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        }
-  },
-	"resources": [
-		{
-			"apiVersion": "2017-05-10",
-			"resourceGroup": "[variables('resourceGroupWebapp')]",
-			"name": "[variables('hostingPlanTemplate')]",
-			"type": "Microsoft.Resources/deployments",
-			"properties": {
-				"mode": "Incremental",
-				"templateLink": {
-					"uri": "githublink for cm",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-    "location": {
-            "value": "eastus"
-        },
-        "networkInterfaceName": {
-            "value": "vmdemo18"
         },
         "networkSecurityGroupName": {
-            "value": "vmdemo-nsg"
+            "type": "string"
         },
         "networkSecurityGroupRules": {
-            "value": [
-                {
-                    "name": "RDP",
-                    "properties": {
-                        "priority": 300,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "3389"
-                    }
-                }
-            ]
+            "type": "array"
         },
         "subnetName": {
-            "value": "default"
+            "type": "string"
         },
         "virtualNetworkName": {
-            "value": "CPTDevops-vnet"
+            "type": "string"
         },
         "addressPrefixes": {
-            "value": [
-                "10.0.0.0/16"
-            ]
+            "type": "array"
         },
         "subnets": {
-            "value": [
-                {
-                    "name": "default",
-                    "properties": {
-                        "addressPrefix": "10.0.0.0/24"
-                    }
-                }
-            ]
+            "type": "array"
         },
         "publicIpAddressName": {
-            "value": "vmdemo-ip"
+            "type": "string"
         },
         "publicIpAddressType": {
-            "value": "Dynamic"
+            "type": "string"
         },
         "publicIpAddressSku": {
-            "value": "Basic"
+            "type": "string"
         },
         "virtualMachineName": {
-            "value": "vmdemo"
+            "type": "string"
         },
         "virtualMachineComputerName": {
-            "value": "vmdemo"
+            "type": "string"
         },
         "virtualMachineRG": {
-            "value": "CPTDevops"
+            "type": "string"
         },
         "osDiskType": {
-            "value": "Premium_LRS"
+            "type": "string"
         },
         "virtualMachineSize": {
-            "value": "Standard_B1s"
+            "type": "string"
         },
         "adminUsername": {
-            "value": "joshua"
+            "type": "string"
         },
         "adminPassword": {
-            "value": "Vengateshtkc@1"
-        },
-        "patchMode": {
-            "value": "AutomaticByOS"
-        },
-        "enableHotpatching": {
-            "value": false
-        }				}
-			}
-		},
-		{
-			"apiVersion": "2017-05-10",
-			"resourceGroup": "[variables('resourceGroupWebapp')]",
-			"name": "[variables('hostingPlanTemplate')]",
-			"type": "Microsoft.Resources/deployments",
-			"properties": {
-				"mode": "Incremental",
-				"templateLink": {
-					"uri": "githublink for db",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"administratorLogin": {
+            "type": "secureString"
+        }
+	},
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "resourceGroup": "testarm",
+            "name": "testvm",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://cptdevopsstorageacct.blob.core.windows.net/armtemplates/template.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                 "networkInterfaceName": {
             "type": "string"
         },
-        "administratorLoginPassword": {
-            "type": "securestring"
-        },
-        "collation": {
+        "networkSecurityGroupName": {
             "type": "string"
         },
-        "databaseName": {
+        "networkSecurityGroupRules": {
+            "type": "array"
+        },
+        "subnetName": {
             "type": "string"
         },
-        "tier": {
+        "virtualNetworkName": {
             "type": "string"
         },
-        "skuName": {
+        "addressPrefixes": {
+            "type": "array"
+        },
+        "subnets": {
+            "type": "array"
+        },
+        "publicIpAddressName": {
             "type": "string"
         },
-        "location": {
+        "publicIpAddressType": {
             "type": "string"
         },
-        "maxSizeBytes": {
-            "type": "int"
-        },
-        "serverName": {
+        "publicIpAddressSku": {
             "type": "string"
         },
-        "sampleName": {
-            "type": "string",
-            "defaultValue": ""
+        "virtualMachineName": {
+            "type": "string"
         },
-        "zoneRedundant": {
-            "type": "bool",
-            "defaultValue": false
+        "virtualMachineComputerName": {
+            "type": "string"
         },
-        "licenseType": {
-            "type": "string",
-            "defaultValue": ""
+        "virtualMachineRG": {
+            "type": "string"
         },
-        "readScaleOut": {
-            "type": "string",
-            "defaultValue": "Disabled"
+        "osDiskType": {
+            "type": "string"
         },
-        "numberOfReplicas": {
-            "type": "int",
-            "defaultValue": 0
+        "virtualMachineSize": {
+            "type": "string"
         },
-        "minCapacity": {
-            "type": "string",
-            "defaultValue": ""
+        "adminUsername": {
+            "type": "string"
         },
-        "autoPauseDelay": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "enableADS": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "allowAzureIps": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "databaseTags": {
-            "type": "object",
-            "defaultValue": {}
-        },
-        "serverTags": {
-            "type": "object",
-            "defaultValue": {}
-        },
-        "enableVA": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "useVAManagedIdentity": {
-            "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "To enable vulnerability assessments, the user deploying this template must have an administrator or owner permissions."
+        "adminPassword": {
+            "type": "secureString"
+        }
             }
         },
-        "enablePrivateEndpoint": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "privateEndpointNestedTemplateId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointSubscriptionId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointLocation": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointSubnetId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateLinkServiceName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateLinkServiceServiceId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointVnetSubscriptionId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointVnetResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointVnetName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointSubnetName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "enablePrivateDnsZone": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "privateLinkPrivateDnsZoneFQDN": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointDnsRecordUniqueId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateEndpointTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateDnsForPrivateEndpointTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateDnsForPrivateEndpointNicTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "privateDnsForPrivateEndpointIpConfigTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "allowClientIp": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "clientIpRuleName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "clientIpValue": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "requestedBackupStorageRedundancy": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "maintenanceConfigurationId": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "minimalTlsVersion": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "enableSqlLedger": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "enableDigestStorage": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "digestStorageOption": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "digestStorageName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "blobStorageContainerName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "retentionDays": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "retentionPolicy": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "digestAccountResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "digestRegion": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "isNewDigestLocation": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "sqlLedgerTemplateLink": {
-            "type": "string",
-            "defaultValue": ""
+        {
+            "apiVersion": "2017-05-10",
+            "resourceGroup": "testarm",
+            "name": "testdb",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://cptdevopsstorageacct.blob.core.windows.net/armtemplates/sqltemplate.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serverName": {
+      "type": "string",
+      "defaultValue": "[uniqueString('sql', resourceGroup().id)]",
+      "metadata": {
+        "description": "The name of the SQL logical server."
+      }
+    },
+    "sqlDBName": {
+      "type": "string",
+      "defaultValue": "SampleDB",
+      "metadata": {
+        "description": "The name of the SQL Database."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "administratorLogin": {
+      "type": "string",
+      "metadata": {
+        "description": "The administrator username of the SQL logical server."
+      }
+    },
+    "administratorLoginPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The administrator password of the SQL logical server."
+      }
+    }
+                }
+            }
         }
-				}
-			}
-		},
-		
-	]}
+    ]
+}
