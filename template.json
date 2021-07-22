@@ -56,12 +56,7 @@
         "adminPassword": {
             "type": "secureString"
         },
-        "patchMode": {
-            "type": "string"
-        },
-        "enableHotpatching": {
-            "type": "bool"
-        }
+       
     },
     "variables": {
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
@@ -177,11 +172,7 @@
                             "patchMode": "[parameters('patchMode')]"
                         }
                     }
-                },
-                "diagnosticsProfile": {
-                    "bootDiagnostics": {
-                        "enabled": true
-                    }
+                }
                 }
             }
         }
