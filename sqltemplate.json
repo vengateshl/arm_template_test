@@ -4,24 +4,19 @@
   "parameters": {
     "serverName": {
       "type": "string",
-    
-    },
+     },
     "sqlDBName": {
       "type": "string",
-     
-    },
+     },
     "location": {
       "type": "string",
-     
-    },
+     },
     "administratorLogin": {
       "type": "string",
-     
-    },
+     },
     "administratorLoginPassword": {
       "type": "securestring",
-     
-    }
+      }
   },
   "variables": {},
   "resources": [
