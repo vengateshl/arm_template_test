@@ -78,12 +78,6 @@
         },
         "adminPassword": {
             "value": "Vengateshtkc@1"
-        },
-        "patchMode": {
-            "value": "AutomaticByOS"
-        },
-        "enableHotpatching": {
-            "value": false
         }
     }
 }
