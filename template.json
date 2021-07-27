@@ -185,40 +185,32 @@
                 }
             }
         },
-		 {
-            "name": "microsoft.vsts-agent-linux-20210727135553",
-            "apiVersion": "2015-01-01",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "incremental",
-                "templateLink": {
-                    "uri": "https://catalogartifact.azureedge.net/publicartifactsmigration/microsoft.vsts-agent-linux-arm.1.0.4/Artifacts/MainTemplate.json"
-                },
-                "parameters": {
-                    "vmName": {
-                        "value": "vengatesh"
-                    },
-                    "location": {
-                        "value": "centralus"
-                    },
-                    "VSTSAccountUrl": {
-                        "value": "https://dev.azure.com/DevopsCPTTraining/"
-                    },
-                    "TeamProject": {
-                        "value": "CPT-Automation"
-                    },
-                    "DeploymentGroup": {
-                        "value": "testarmpat"
-                    },
-                    "PATToken": {
-                        "value": "s3xepeeird5fyjkkmuvikg6mzhgs5cwjaaxwmud3mbkc2wmizfsq"
-                    }
-                }
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-            ]
-        }
+		{
+    "name": "[concat(parameters('vmNamePrefix'),copyIndex(),'/TeamServicesAgent')]",
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "location": "[parameters('location')]",
+    "apiVersion": "2015-06-15",
+    "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/',
+                      concat(parameters('vmNamePrefix'),copyindex()))]"
+    ],
+    "properties": {
+      "publisher": "Microsoft.VisualStudio.Services",
+      "type": "TeamServicesAgent",
+      "typeHandlerVersion": "1.0",
+      "autoUpgradeMinorVersion": true,
+      "settings": {
+        "VSTSAccountName": "https://dev.azure.com/DevopsCPTTraining/",
+        "TeamProject": "CPT-Automation",
+        "DeploymentGroup": "testarmpat",
+       
+      },
+      "protectedSettings": {
+      "PATToken": "s3xepeeird5fyjkkmuvikg6mzhgs5cwjaaxwmud3mbkc2wmizfsq"
+     }
+   }
+  }
+		 
     ],
     "outputs": {
         "adminUsername": {
