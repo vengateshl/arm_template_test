@@ -25,6 +25,20 @@
                         "destinationAddressPrefix": "*",
                         "destinationPortRange": "3389"
                     }
+                },
+                {
+                    "name": "port_80",
+                    "properties": {
+                        "priority": 100,
+                        "protocol": "Any",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "80"
+                 
+                    }
                 }
             ]
         },
